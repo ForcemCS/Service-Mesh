@@ -350,6 +350,10 @@ Containerd或者dockerd是用来维持通过runc创建的容器的运行状态�
 containerd的容器日志的位置是由kubelet来决定的（例如/var/log/pods/default_my-nginx_7a3a9db7-d9e2-43fd-8e59-c4f44d494685/my-nginx)
 #命令行客户端，containerd安装好之后，命令行客户端ctr二进制也会被下载
 参考：https://cloud.tencent.com/developer/article/1852346
+CNI说明:
+CNI定义了网络插件应该如何开发，以及容器运行时应该如何调用他们
+每当创建一个容器时，k8s会创建网络名称空间，并调用正确的网络插件，kubelet查看cni的配置，并将其作为容器运行时的命令行参数。然后在cni的bin目录中查找相关的脚本
+每个节点上同时还运行kube-proxy,当创建一个service的时候，每个节点都会创建一个转发规则，将访问service的请求，转发到podip 
 ```
 
 ### DNS的部署
